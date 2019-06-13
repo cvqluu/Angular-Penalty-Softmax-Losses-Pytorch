@@ -17,4 +17,24 @@ loss = criterion(x, labels)
 loss.backward()
 ```
 
-[1] Wang, Feng, Jian Cheng, Weiyang Liu and Haijun Liu. “Additive Margin Softmax for Face Verification.” IEEE Signal Processing Letters 25 (2018): 926-930.
+## Experiments/Demo
+
+There are a simple set of experiments on [Fashion-MNIST](https://github.com/zalandoresearch/fashion-mnist) [2] included in `train_fMNIST.py` which compares the use of ordinary Softmax and Additive Margin Softmax loss functions by projecting embedding features onto a 3D sphere.
+
+The experiments can be run like so:
+
+``
+python train_fMNIST.py --num-epochs 40 --seed 1234 --use-cuda
+``
+
+Which produces the following results:
+
+### Baseline (softmax)
+![softmax](figs/baseline.png?raw=true "softmax")
+
+### Additive Margin Softmax
+![AdMSoftmax](figs/AdMSoftmax.png?raw=true "AdMSoftmax")
+
+[1] “Additive Margin Softmax for Face Verification.” Wang, Feng, Jian Cheng, Weiyang Liu and Haijun Liu. IEEE Signal Processing Letters 25 (2018): 926-930.
+
+[2] "Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms." Han Xiao, Kashif Rasul, Roland Vollgraf. arXiv:1708.07747
