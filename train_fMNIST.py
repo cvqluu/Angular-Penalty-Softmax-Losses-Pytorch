@@ -29,7 +29,7 @@ def main():
     print('Training Baseline model....')
     model_baseline = train_baseline(train_loader)
     bl_embeds, bl_labels = get_embeds(model_baseline, example_loader)
-    plot(bl_embeds, bl_labels, fig_path='./figs/baseline.pdf')
+    plot(bl_embeds, bl_labels, fig_path='./figs/baseline.png')
     print('Saved Baseline figure')
 
     del model_baseline, bl_embeds, bl_labels
@@ -37,7 +37,7 @@ def main():
     print('Training AdMSoftmax model....')
     model_am = train_am(train_loader)
     am_embeds, am_labels = get_embeds(model_am, example_loader)
-    plot(am_embeds, am_labels, fig_path='./figs/AdMSoftmax.pdf')
+    plot(am_embeds, am_labels, fig_path='./figs/AdMSoftmax.png')
     print('Saved AdMSoftmax figure')
 
 
