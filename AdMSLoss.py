@@ -2,13 +2,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class AMSoftmaxLoss(nn.Module):
+class AdMSoftmaxLoss(nn.Module):
 
     def __init__(self, in_features, out_features, s=30.0, m=0.4):
         '''
         AM Softmax Loss
         '''
-        super(AMSoftmaxLoss, self).__init__()
+        super(AdMSoftmaxLoss, self).__init__()
         self.s = s
         self.m = m
         self.in_features = in_features
