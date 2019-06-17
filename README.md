@@ -12,7 +12,7 @@ criterion = AdMSoftmaxLoss(in_features, out_features, s=30.0, m=0.4) # Default v
 
 # Forward method works similarly to nn.CrossEntropyLoss
 # x of shape (batch_size, in_features), labels of shape (batch_size,)
-# labels should indicated class of each sample
+# labels should indicate class of each sample, and should be an int, l satisying 0 <= l < out_dim
 loss = criterion(x, labels) 
 loss.backward()
 ```
