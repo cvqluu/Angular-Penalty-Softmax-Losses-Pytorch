@@ -5,6 +5,8 @@ Concise Pytorch implementation of the Angular Penalty Softmax Losses presented i
 * SphereFace: https://arxiv.org/abs/1704.08063 [2]
 * CosFace/Additive Margin: https://arxiv.org/abs/1801.09414 [3] / https://arxiv.org/abs/1801.05599 [4]
 
+(Note: the SphereFace implementation is not exactly as described in their paper but instead uses the 'trick' presented in the ArcFace paper to use arccosine instead of the double angle formula)
+
 ```python
 
 from loss_functions import AngularPenaltySMLoss
