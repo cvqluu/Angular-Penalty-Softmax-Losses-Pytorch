@@ -1,12 +1,14 @@
-import torch
 import argparse
+import os
 
+import numpy as np
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import datasets, transforms
+from tqdm import tqdm
+
 from models import ConvAngularPen, ConvBaseline
-import numpy as np
-import os
 from plotting import plot
 
 
@@ -49,8 +51,8 @@ def train_baseline(train_loader):
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     total_step = len(train_loader)
-    for epoch in range(args.num_epochs): 
-        for i, (feats, labels) in enumerate(train_loader):
+    for epoch in tqdm(range(args.num_epochs)): 
+        for i, (feats, labels) in enumerate(tqdm(train_loader)):
             feats = feats.to(device)
             labels = labels.to(device)
             out = model(feats)
@@ -70,8 +72,8 @@ def train_am(train_loader, loss_type):
     model = ConvAngularPen(loss_type=loss_type).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     total_step = len(train_loader)
-    for epoch in range(args.num_epochs): 
-        for i, (feats, labels) in enumerate(train_loader):
+    for epoch in tqdm(range(args.num_epochs)): 
+        for i, (feats, labels) in enumerate(tqdm(train_loader)):
             feats = feats.to(device)
             labels = labels.to(device)
             loss = model(feats, labels=labels)
