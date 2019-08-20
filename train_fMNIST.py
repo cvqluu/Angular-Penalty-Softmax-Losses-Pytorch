@@ -4,7 +4,7 @@ import argparse
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import datasets, transforms
-from models import ConvAM, ConvBaseline
+from models import ConvAngularPen, ConvBaseline
 import numpy as np
 import os
 from plotting import plot
@@ -34,11 +34,14 @@ def main():
 
     del model_baseline, bl_embeds, bl_labels
     
-    print('Training AdMSoftmax model....')
-    model_am = train_am(train_loader)
-    am_embeds, am_labels = get_embeds(model_am, example_loader)
-    plot(am_embeds, am_labels, fig_path='./figs/AdMSoftmax.png')
-    print('Saved AdMSoftmax figure')
+    loss_types = ['arcface', 'sphereface', 'cosface']
+    for loss_type in loss_types:
+        print('Training {} model....'.format(loss_type))
+        model_am = train_am(train_loader)
+        am_embeds, am_labels = get_embeds(model_am, example_loader)
+        plot(am_embeds, am_labels, fig_path='./figs/{}.png'.format(loss_type))
+        print('Saved {} figure'.format(loss_type))
+        del model_am, am_embeds, am_labels
 
 
 def train_baseline(train_loader):
@@ -63,8 +66,8 @@ def train_baseline(train_loader):
                 param_group['lr'] = param_group['lr']/4
     return model.cpu()
 
-def train_am(train_loader):
-    model = ConvAM().to(device)
+def train_am(train_loader, loss_type):
+    model = ConvAngularPen(loss_type=loss_type).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     total_step = len(train_loader)
     for epoch in range(args.num_epochs): 
@@ -76,8 +79,8 @@ def train_am(train_loader):
             loss.backward()
             optimizer.step()
             if (i+1) % 100 == 0:
-                print('AdMSoftmax: Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' 
-                    .format(epoch+1, args.num_epochs, i+1, total_step, loss.item()))
+                print('{}: Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' 
+                    .format(loss_type, epoch+1, args.num_epochs, i+1, total_step, loss.item()))
 
         if((epoch+1) % 8 == 0):
             for param_group in optimizer.param_groups:
@@ -99,7 +102,7 @@ def get_embeds(model, loader):
     return np.concatenate(full_embeds), np.concatenate(full_labels)
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Run AdMSoftmax and Baseline experiments in fMNIST')
+    parser = argparse.ArgumentParser(description='Run Angular Penalty and Baseline experiments in fMNIST')
     parser.add_argument('--batch-size', type=int, default=512,
                         help='input batch size for training (default: 512)')
     parser.add_argument('--num-epochs', type=int, default=40,

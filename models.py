@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from AdMSLoss import AdMSoftmaxLoss
+from loss_functions import AngularPenaltySMLoss
 
 
 class ConvBaseline(nn.Module):
@@ -16,11 +16,11 @@ class ConvBaseline(nn.Module):
         x = self.fc_final(x)
         return x
 
-class ConvAM(nn.Module):
-    def __init__(self, num_classes=10):
+class ConvAngularPen(nn.Module):
+    def __init__(self, num_classes=10, loss_type='arcface'):
         super(ConvAM, self).__init__()
         self.convlayers = ConvNet()
-        self.adms_loss = AdMSoftmaxLoss(3, num_classes, s=10.0, m=0.5)
+        self.adms_loss = AngularPenaltySMLoss(3, num_classes, loss_type=loss_type)
 
     def forward(self, x, labels=None, embed=False):
         x = self.convlayers(x)
