@@ -5,7 +5,7 @@ import torch.nn.functional as F
 
 class AngularPenaltySMLoss(nn.Module):
 
-    def __init__(self, in_features, out_features, loss_type='arcface', eps=1e-7, s=None, m=None):
+    def __init__(self, in_features, out_features, loss_type='arcface', eps=1e-5, s=None, m=None):
         '''
         Angular Penalty Softmax Loss
 
@@ -24,11 +24,11 @@ class AngularPenaltySMLoss(nn.Module):
             self.s = 64.0 if not s else s
             self.m = 0.5 if not m else m
         if loss_type == 'sphereface':
-            self.s = 1.0 if not s else s
+            self.s = 64.0 if not s else s
             self.m = 1.35 if not m else m
         if loss_type == 'cosface':
-            self.s = 64.0 if not s else s
-            self.m = 0.35 if not m else m
+            self.s = 30.0 if not s else s
+            self.m = 0.4 if not m else m
         self.loss_type = loss_type
         self.in_features = in_features
         self.out_features = out_features
@@ -44,9 +44,9 @@ class AngularPenaltySMLoss(nn.Module):
         assert torch.max(labels) < self.out_features
         
         for W in self.fc.parameters():
-            W = F.normalize(W, dim=1)
+            W = F.normalize(W, p=2, dim=1)
 
-        x = F.normalize(x, dim=1)
+        x = F.normalize(x, p=2, dim=1)
 
         wf = self.fc(x)
         if self.loss_type == 'cosface':

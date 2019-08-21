@@ -19,7 +19,7 @@ class ConvBaseline(nn.Module):
 
 class ConvAngularPen(nn.Module):
     def __init__(self, num_classes=10, loss_type='arcface'):
-        super(ConvAM, self).__init__()
+        super(ConvAngularPen, self).__init__()
         self.convlayers = ConvNet()
         self.adms_loss = AngularPenaltySMLoss(3, num_classes, loss_type=loss_type)
 
