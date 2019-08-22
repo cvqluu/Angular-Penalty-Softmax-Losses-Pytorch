@@ -44,8 +44,7 @@ Which produces the following results:
 ### ArcFace
 ![arcface](figs/arcface.png?raw=true "arcface")
 
-### SphereFace
-![sphereface](figs/sphereface.png?raw=true "arcface")
+TODO: fix sphereface results
 
 [1] Deng, J. et al. (2018) ‘ArcFace: Additive Angular Margin Loss for Deep Face Recognition’. Available at: http://arxiv.org/abs/1801.07698.
 
