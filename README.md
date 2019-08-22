@@ -38,10 +38,14 @@ Which produces the following results:
 ### Baseline (softmax)
 ![softmax](figs/baseline.png?raw=true "softmax")
 
-# TODO: Update results
-
 ### Additive Margin Softmax/CosFace
-![AdMSoftmax](figs/AdMSoftmax.png?raw=true "AdMSoftmax")
+![cosface](figs/cosface.png?raw=true "cosface")
+
+### ArcFace
+![arcface](figs/arcface.png?raw=true "arcface")
+
+### SphereFace
+![sphereface](figs/sphereface.png?raw=true "arcface")
 
 [1] Deng, J. et al. (2018) ‘ArcFace: Additive Angular Margin Loss for Deep Face Recognition’. Available at: http://arxiv.org/abs/1801.07698.
 
