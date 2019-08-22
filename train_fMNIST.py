@@ -36,7 +36,7 @@ def main():
 
     del model_baseline, bl_embeds, bl_labels
     
-    loss_types = ['sphereface', 'cosface', 'arcface']
+    loss_types = ['cosface', 'sphereface', 'arcface']
     for loss_type in loss_types:
         print('Training {} model....'.format(loss_type))
         model_am = train_am(train_loader, loss_type)

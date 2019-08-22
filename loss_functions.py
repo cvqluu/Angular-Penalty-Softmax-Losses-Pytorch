@@ -5,7 +5,7 @@ import torch.nn.functional as F
 
 class AngularPenaltySMLoss(nn.Module):
 
-    def __init__(self, in_features, out_features, loss_type='arcface', eps=1e-5, s=None, m=None):
+    def __init__(self, in_features, out_features, loss_type='arcface', eps=1e-7, s=None, m=None):
         '''
         Angular Penalty Softmax Loss
 
