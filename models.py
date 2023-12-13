@@ -17,8 +17,9 @@ class ConvBaseline(nn.Module):
         x = self.fc_final(x)
         return x
 
+
 class ConvAngularPen(nn.Module):
-    def __init__(self, num_classes=10, loss_type='arcface'):
+    def __init__(self, num_classes=10, loss_type="arcface"):
         super(ConvAngularPen, self).__init__()
         self.convlayers = ConvNet()
         self.adms_loss = AngularPenaltySMLoss(3, num_classes, loss_type=loss_type)
@@ -30,32 +31,37 @@ class ConvAngularPen(nn.Module):
         L = self.adms_loss(x, labels)
         return L
 
-class ConvNet(nn.Module):
 
+class ConvNet(nn.Module):
     def __init__(self):
         super(ConvNet, self).__init__()
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 32, kernel_size=3, stride=1, padding=0),
             nn.ReLU(),
-            nn.BatchNorm2d(32))
+            nn.BatchNorm2d(32),
+        )
         self.layer2 = nn.Sequential(
             nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=0),
             nn.ReLU(),
-            nn.BatchNorm2d(64))
+            nn.BatchNorm2d(64),
+        )
         self.layer3 = nn.Sequential(
             nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
             nn.BatchNorm2d(128),
-            nn.MaxPool2d(kernel_size=2, stride=2))
+            nn.MaxPool2d(kernel_size=2, stride=2),
+        )
         self.layer4 = nn.Sequential(
             nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=0),
             nn.ReLU(),
-            nn.BatchNorm2d(256))
+            nn.BatchNorm2d(256),
+        )
         self.layer5 = nn.Sequential(
             nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=0),
             nn.ReLU(),
             nn.BatchNorm2d(512),
-            nn.MaxPool2d(kernel_size=8, stride=1))
+            nn.MaxPool2d(kernel_size=8, stride=1),
+        )
         self.fc_projection = nn.Linear(512, 3)
 
     def forward(self, x, embed=False):
